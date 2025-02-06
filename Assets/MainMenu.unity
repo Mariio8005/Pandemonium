@@ -959,8 +959,8 @@ RectTransform:
   m_Children: []
   m_Father: {fileID: 1746536984}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0, y: 0}
-  m_AnchorMax: {x: 0, y: 0}
+  m_AnchorMin: {x: 0.5, y: 0}
+  m_AnchorMax: {x: 0.5, y: 1}
   m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 20, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}
@@ -2329,7 +2329,19 @@ MonoBehaviour:
   m_Value: 0.5
   m_OnValueChanged:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 2081953942}
+        m_TargetAssemblyTypeName: MenuController, Assembly-CSharp
+        m_MethodName: SetVolume
+        m_Mode: 0
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!1 &635627951
 GameObject:
   m_ObjectHideFlags: 0
@@ -3000,7 +3012,7 @@ RectTransform:
   m_Father: {fileID: 545161694}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
-  m_AnchorMax: {x: 0, y: 0}
+  m_AnchorMax: {x: 0.5, y: 1}
   m_AnchoredPosition: {x: -5.3630066, y: 0}
   m_SizeDelta: {x: 3.369, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}
@@ -3287,7 +3299,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!224 &1124973810
 RectTransform:
   m_ObjectHideFlags: 0
@@ -4183,7 +4195,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!224 &1420903341
 RectTransform:
   m_ObjectHideFlags: 0
@@ -4669,7 +4681,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &1647327272
 RectTransform:
   m_ObjectHideFlags: 0
@@ -6373,6 +6385,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 834c47f22d981954ca3c80740e84470b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  volumeTextValue: {fileID: 0}
+  volumeSlider: {fileID: 0}
+  confirmationPrompt: {fileID: 0}
   _newGameLevel: Level1
   noSavedGameDialog: {fileID: 1930773900}
 --- !u!4 &2081953943
@@ -6844,7 +6859,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: -365.999, y: 29.29}
+  m_AnchoredPosition: {x: -359, y: 29.29}
   m_SizeDelta: {x: 959.966, y: 486.695}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &2144362031
