@@ -1,16 +1,20 @@
 using System.Collections;
+using System.Collections.Generic;
 using UnityEngine;
 using TMPro;
 
 public class ObjectMission : MonoBehaviour
 {
-    public GameObject objectToDeliver; // Objeto a transportar
-    public Transform deliveryZone; // Zona de entrega
+    public List<GameObject> carrots; // Lista de zanahorias a entregar
+    public List<GameObject> onions;  // Lista de cebollas a entregar
+    public Transform deliveryZone;   // Zona de entrega
     public TextMeshProUGUI missionText; // Texto de la misión
-    public GameObject missionPanel; // Panel que contiene el texto de la misión
-    public float completionDelay = 2f; // Tiempo antes de desaparecer el mensaje de misión completada
+    public GameObject missionPanel;  // Panel de la misión
+    public float completionDelay = 2f; // Tiempo antes de ocultar la misión
 
     private bool missionComplete = false;
+    private HashSet<GameObject> deliveredCarrots = new HashSet<GameObject>(); // Zanahorias entregadas
+    private HashSet<GameObject> deliveredOnions = new HashSet<GameObject>();  // Cebollas entregadas
 
     void Start()
     {
@@ -27,13 +31,35 @@ public class ObjectMission : MonoBehaviour
 
     void CheckMissionStatus()
     {
-        float distanceToZone = Vector3.Distance(objectToDeliver.transform.position, deliveryZone.position);
-        if (distanceToZone < 1.5f) // Si el objeto está en la zona
+        foreach (GameObject carrot in carrots)
+        {
+            float distance = Vector3.Distance(carrot.transform.position, deliveryZone.position);
+            if (distance < 1.5f && !deliveredCarrots.Contains(carrot))
+            {
+                deliveredCarrots.Add(carrot); // Marca la zanahoria como entregada
+            }
+        }
+
+        foreach (GameObject onion in onions)
+        {
+            float distance = Vector3.Distance(onion.transform.position, deliveryZone.position);
+            if (distance < 1.5f && !deliveredOnions.Contains(onion))
+            {
+                deliveredOnions.Add(onion); // Marca la cebolla como entregada
+            }
+        }
+
+        // Si todas las zanahorias y cebollas han sido entregadas, completar misión
+        if (deliveredCarrots.Count >= carrots.Count && deliveredOnions.Count >= onions.Count)
         {
             missionComplete = true;
             UpdateMissionText();
-            Debug.Log("Misión completada: Objeto entregado en la zona.");
+            Debug.Log("¡Misión completada!");
             StartCoroutine(HideMissionTextAndPanelAfterDelay());
+        }
+        else
+        {
+            UpdateMissionText(); // Actualiza el texto en tiempo real
         }
     }
 
@@ -41,18 +67,19 @@ public class ObjectMission : MonoBehaviour
     {
         if (missionComplete)
         {
-            missionText.text = "Misión completada: Objeto entregado.";
+            missionText.text = "¡Misión completada!";
         }
         else
         {
-            missionText.text = "Misión: Lleva el objeto a la zona indicada.";
+            missionText.text = $"Entrega 3 zanahorias al caldero {deliveredCarrots.Count}/3.\n" +
+                               $"Entrega 1 cebolla al caldero {deliveredOnions.Count}/1.";
         }
     }
 
     IEnumerator HideMissionTextAndPanelAfterDelay()
     {
-        yield return new WaitForSeconds(completionDelay); // Espera el tiempo especificado
-        missionText.text = ""; // Elimina el texto
-        missionPanel.SetActive(false); // Desactiva el panel
+        yield return new WaitForSeconds(completionDelay);
+        missionText.text = "";
+        missionPanel.SetActive(false);
     }
 }
