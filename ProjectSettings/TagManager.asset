@@ -5,6 +5,7 @@ TagManager:
   serializedVersion: 2
   tags:
   - Dog
+  - FlashLight
   layers:
   - Default
   - TransparentFX
