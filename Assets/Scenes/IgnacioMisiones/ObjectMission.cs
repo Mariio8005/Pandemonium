@@ -12,7 +12,8 @@ public class ObjectMission : MonoBehaviour
     public GameObject missionPanel;  // Panel de la misión
     public float completionDelay = 2f; // Tiempo antes de ocultar la misión
 
-    private bool missionComplete = false;
+    private bool carrotsMissionComplete = false;
+    private bool onionsMissionComplete = false;
     private HashSet<GameObject> deliveredCarrots = new HashSet<GameObject>(); // Zanahorias entregadas
     private HashSet<GameObject> deliveredOnions = new HashSet<GameObject>();  // Cebollas entregadas
 
@@ -23,13 +24,17 @@ public class ObjectMission : MonoBehaviour
 
     void Update()
     {
-        if (!missionComplete)
+        if (!carrotsMissionComplete)
         {
-            CheckMissionStatus();
+            CheckCarrotMissionStatus();
+        }
+        else if (!onionsMissionComplete)
+        {
+            CheckOnionMissionStatus();
         }
     }
 
-    void CheckMissionStatus()
+    void CheckCarrotMissionStatus()
     {
         foreach (GameObject carrot in carrots)
         {
@@ -40,39 +45,55 @@ public class ObjectMission : MonoBehaviour
             }
         }
 
+        if (deliveredCarrots.Count >= carrots.Count)
+        {
+            carrotsMissionComplete = true;
+            UpdateMissionText();
+            Debug.Log("¡Misión de zanahorias completada!");
+        }
+        else
+        {
+            UpdateMissionText();
+        }
+    }
+
+    void CheckOnionMissionStatus()
+    {
         foreach (GameObject onion in onions)
         {
             float distance = Vector3.Distance(onion.transform.position, deliveryZone.position);
             if (distance < 1.5f && !deliveredOnions.Contains(onion))
             {
-                deliveredOnions.Add(onion); // Marca la cebolla como entregada
+                deliveredOnions.Add(onion);
             }
         }
 
-        // Si todas las zanahorias y cebollas han sido entregadas, completar misión
-        if (deliveredCarrots.Count >= carrots.Count && deliveredOnions.Count >= onions.Count)
+        if (deliveredOnions.Count >= onions.Count)
         {
-            missionComplete = true;
+            onionsMissionComplete = true;
             UpdateMissionText();
-            Debug.Log("¡Misión completada!");
+            Debug.Log("¡Misión de cebolla completada!");
             StartCoroutine(HideMissionTextAndPanelAfterDelay());
         }
         else
         {
-            UpdateMissionText(); // Actualiza el texto en tiempo real
+            UpdateMissionText();
         }
     }
 
     void UpdateMissionText()
     {
-        if (missionComplete)
+        if (onionsMissionComplete)
         {
             missionText.text = "¡Misión completada!";
         }
+        else if (carrotsMissionComplete)
+        {
+            missionText.text = $"Entrega 1 cebolla al caldero {deliveredOnions.Count}/1.";
+        }
         else
         {
-            missionText.text = $"Entrega 3 zanahorias al caldero {deliveredCarrots.Count}/3.\n" +
-                               $"Entrega 1 cebolla al caldero {deliveredOnions.Count}/1.";
+            missionText.text = $"Entrega 3 zanahorias al caldero {deliveredCarrots.Count}/3.";
         }
     }
 
