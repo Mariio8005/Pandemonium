@@ -5,10 +5,19 @@ EditorBuildSettings:
   m_ObjectHideFlags: 0
   serializedVersion: 2
   m_Scenes:
-  - enabled: 1
-    path: Assets/Level1.unity
-    guid: ee8582cb5ca9de549b1bdc869aa102ce
-  - enabled: 1
+  - enabled: 0
     path: Assets/MainMenu.unity
     guid: 05b94c990e1dd0946b21d5861ca54a4a
+  - enabled: 0
+    path: Assets/Scenes/Menu.unity
+    guid: db36dc4cf514f76468f998fc5e29e57e
+  - enabled: 1
+    path: Assets/Scenes/MapaVieojuego.unity
+    guid: 1d69d042e41f8bb4ba4c1f98204f51fa
+  - enabled: 1
+    path: Assets/Scenes/HabitacionMedio.unity
+    guid: d8c722c3153d4a749b2f6b1af640d2fb
+  - enabled: 1
+    path: Assets/Scenes/Blanco.unity
+    guid: c4ce77838a2e93a44892ce0f5d94bd59
   m_configObjects: {}
